@@ -6,13 +6,20 @@ from PIL import Image
 import hashlib
 import json
 import os
+import gdown
 
 # Load the trained model
-MODEL_PATH = "Densenet169_ECG_Model.h5"
+model_path = "Densenet169_ECG_Model.h5"
 model = tf.keras.models.load_model(MODEL_PATH)
 
 # Define class names 
 class_names = ["AHB", "COVID-19", "HMI", "MI","Normal"]
+
+file_id = '1oZeuG6YpVtr3bo5hVfv1bHTQhoOsf0s6'
+url = f'https://drive.google.com/uc?id={file_id}'
+
+if not os.path.exists(model_path):
+    gdown.download(url, model_path, quiet=False)
 
 # File to store user credentials
 CREDENTIALS_FILE = "user_credentials.json"
